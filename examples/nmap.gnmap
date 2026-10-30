@@ -1,0 +1,4 @@
+# Nmap 7.95 scan initiated Thu Oct 30 12:00:00 2026 as: nmap -sV -oG nmap.gnmap 10.10.10.5
+Host: 10.10.10.5 (box.htb)	Status: Up
+Host: 10.10.10.5 (box.htb)	Ports: 22/open/tcp//ssh//OpenSSH 8.2p1 Ubuntu 4ubuntu0.5 (Ubuntu Linux; protocol 2.0)/, 80/open/tcp//http//Apache httpd 2.4.41 ((Ubuntu))/, 3306/filtered/tcp//mysql///	Ignored State: closed (997)
+# Nmap done at Thu Oct 30 12:00:21 2026 -- 1 IP address (1 host up) scanned in 21.03 seconds

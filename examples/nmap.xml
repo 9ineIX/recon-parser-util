@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<nmaprun scanner="nmap" args="nmap -sV -oX nmap.xml 10.10.10.5" start="1793361600" version="7.95" xmloutputversion="1.05">
+<host starttime="1793361600" endtime="1793361621"><status state="up" reason="syn-ack" reason_ttl="63"/>
+<address addr="10.10.10.5" addrtype="ipv4"/>
+<hostnames><hostname name="box.htb" type="user"/></hostnames>
+<ports><extraports state="closed" count="997"/>
+<port protocol="tcp" portid="22"><state state="open" reason="syn-ack" reason_ttl="63"/><service name="ssh" product="OpenSSH" version="8.2p1 Ubuntu 4ubuntu0.5" extrainfo="Ubuntu Linux; protocol 2.0" method="probed" conf="10"/></port>
+<port protocol="tcp" portid="80"><state state="open" reason="syn-ack" reason_ttl="63"/><service name="http" product="Apache httpd" version="2.4.41" extrainfo="(Ubuntu)" method="probed" conf="10"/><script id="http-title" output="Did not follow redirect to http://box.htb/"/></port>
+<port protocol="tcp" portid="8443"><state state="open" reason="syn-ack" reason_ttl="63"/><service name="http" product="nginx" version="1.18.0" tunnel="ssl" method="probed" conf="10"/></port>
+</ports>
+<os><osmatch name="Linux 4.15 - 5.8" accuracy="96"/></os>
+<times srtt="42000" rttvar="5000" to="100000"/>
+</host>
+<runstats><finished time="1793361621" timestr="Thu Oct 30 12:00:21 2026" elapsed="21.03" exit="success"/><hosts up="1" down="0" total="1"/></runstats>
+</nmaprun>
