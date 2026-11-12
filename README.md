@@ -62,6 +62,25 @@ It understands:
 - nmap normal output, `-oX` and `-oG`
 - gobuster `dir`, `dns` and `vhost`
 
+## Scan everything with one command
+
+`recon.sh` runs nmap for you, then gobuster on every web port it finds, and shows one summary at the end:
+
+```bash
+./recon.sh 10.10.10.5
+```
+
+Everything is saved in a folder named after the target: raw nmap and gobuster output plus `report.md`.
+
+By default nmap runs with `-sV -sC` and gobuster uses `common.txt`. You can change both:
+
+```bash
+./recon.sh box.htb -n "-p- -sV -sC" -w /usr/share/seclists/Discovery/Web-Content/big.txt
+./recon.sh 10.10.10.5 -G        # nmap only, skip gobuster
+```
+
+Run `./recon.sh -h` for all options.
+
 ## Handy options
 
 ```bash

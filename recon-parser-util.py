@@ -61,6 +61,7 @@ class Port:
 class Host:
     address: str
     hostname: str = ""
+    hostname_from_dns: bool = False
     status: str = "up"
     latency: str = ""
     mac: str = ""
@@ -317,6 +318,7 @@ def parse_nmap_xml(text: str, source: str, report: Report) -> None:
         user_names = [n.get("name", "") for n in h.findall("hostnames/hostname[@type='user']")]
         hostname = (user_names or names or [""])[0]
         host = _nmap_host(report, hostname or addr_el.get("addr", ""), addr_el.get("addr") if hostname else None, source, None)
+        host.hostname_from_dns = bool(hostname) and not user_names
 
         status = h.find("status")
         host.status = status.get("state", "unknown") if status is not None else "unknown"
@@ -525,7 +527,7 @@ def build_view(report: Report, states: Optional[set[str]], statuses: Optional[se
 def web_urls(view: View) -> list[str]:
     urls: list[str] = []
     for host, ports, _ in view.hosts:
-        name = host.hostname or host.address
+        name = host.address if host.hostname_from_dns else host.hostname or host.address
         if ":" in name:
             name = f"[{name}]"
         for p in ports:

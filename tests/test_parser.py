@@ -152,6 +152,13 @@ class CliTests(unittest.TestCase):
             bad.unlink()
         self.assertEqual(run([str(EXAMPLES / "nmap.txt"), "--strict"])[0], 0)
 
+    def test_urls_use_ip_for_reverse_dns_names(self):
+        report = np.Report()
+        xml = (EXAMPLES / "nmap.xml").read_text().replace('type="user"', 'type="PTR"')
+        np.parse_nmap_xml(xml, "t", report)
+        view = np.build_view(report, {"open"}, None)
+        self.assertEqual(np.web_urls(view), ["http://10.10.10.5", "https://10.10.10.5:8443"])
+
     def test_bad_filter_rejected(self):
         with self.assertRaises(SystemExit):
             run([str(EXAMPLES / "nmap.txt"), "--status", "abc"])
