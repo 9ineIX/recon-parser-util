@@ -730,12 +730,12 @@ def render_csv(view: View) -> str:
 
 def build_arg_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
-        prog="nmap-parser",
+        prog="recon-parser-util",
         description="Validate and structure nmap and gobuster output.",
         epilog="examples:\n"
-               "  nmap -sV 10.10.10.5 | ./nmap-parser.py\n"
-               "  ./nmap-parser.py scan.xml gobuster.txt -f md -o report.md\n"
-               "  ./nmap-parser.py scan.gnmap -f urls | xargs -I{} gobuster dir -u {} -w words.txt",
+               "  nmap -sV 10.10.10.5 | ./recon-parser-util.py\n"
+               "  ./recon-parser-util.py scan.xml gobuster.txt -f md -o report.md\n"
+               "  ./recon-parser-util.py scan.gnmap -f urls | xargs -I{} gobuster dir -u {} -w words.txt",
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
     p.add_argument("inputs", nargs="*", metavar="FILE", help="input files ('-' or nothing = stdin)")
@@ -784,7 +784,7 @@ def main(argv: Optional[list[str]] = None) -> int:
                 continue
             parse_input(text, source, report, args.type, args.base_url)
     except OSError as exc:
-        print(f"nmap-parser: error: {exc}", file=sys.stderr)
+        print(f"recon-parser-util: error: {exc}", file=sys.stderr)
         return 2
     attach_web(report)
 
@@ -792,7 +792,7 @@ def main(argv: Optional[list[str]] = None) -> int:
         if not args.quiet:
             for w in report.warnings:
                 print(f"warning: {w}", file=sys.stderr)
-        print("nmap-parser: no nmap or gobuster data found", file=sys.stderr)
+        print("recon-parser-util: no nmap or gobuster data found", file=sys.stderr)
         return 1
 
     view = build_view(report, args.state, args.status)

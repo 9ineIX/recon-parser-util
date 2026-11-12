@@ -6,7 +6,7 @@ Feed it nmap scans and gobuster results, and it shows open ports and found web p
 It also warns you if something looks wrong, like a scan that was cut off.
 
 ```
-$ ./nmap-parser.py scan.txt gobuster.txt
+$ ./recon-parser-util.py scan.txt gobuster.txt
 
 ========================================================================
 TARGET  10.10.10.5 (box.htb)  [UP]
@@ -31,21 +31,31 @@ You only need Python 3.
 ```bash
 git clone https://github.com/9ineIX/nmap-parser.git
 cd nmap-parser
-chmod +x nmap-parser.py
+chmod +x recon-parser-util.py
 ```
+
+Run it from the project folder with `./` in front: `./recon-parser-util.py`.
+
+Want to run it from anywhere as just `recon-parser`? Make a link once:
+
+```bash
+sudo ln -s "$PWD/recon-parser-util.py" /usr/local/bin/recon-parser
+```
+
+Then `nmap -sV 10.10.10.5 | recon-parser` works in any folder.
 
 ## Usage
 
 Pipe nmap straight into it:
 
 ```bash
-nmap -sV 10.10.10.5 | ./nmap-parser.py
+nmap -sV 10.10.10.5 | ./recon-parser-util.py
 ```
 
 Or pass saved files. You don't have to say which file is which, it figures that out itself:
 
 ```bash
-./nmap-parser.py scan.txt gobuster.txt
+./recon-parser-util.py scan.txt gobuster.txt
 ```
 
 It understands:
@@ -55,27 +65,27 @@ It understands:
 ## Handy options
 
 ```bash
-./nmap-parser.py scan.txt --state all           # show closed/filtered ports too
-./nmap-parser.py scan.txt --scripts             # show nmap script output (-sC)
-./nmap-parser.py scan.txt gob.txt --status 200  # only show some gobuster codes
-./nmap-parser.py scan.txt -f md -o notes.md     # save as Markdown for notes
-./nmap-parser.py scan.txt -f json               # JSON for scripts
+./recon-parser-util.py scan.txt --state all           # show closed/filtered ports too
+./recon-parser-util.py scan.txt --scripts             # show nmap script output (-sC)
+./recon-parser-util.py scan.txt gob.txt --status 200  # only show some gobuster codes
+./recon-parser-util.py scan.txt -f md -o notes.md     # save as Markdown for notes
+./recon-parser-util.py scan.txt -f json               # JSON for scripts
 ```
 
 Find every web server in a scan and run gobuster on each one:
 
 ```bash
-./nmap-parser.py scan.txt -f urls | xargs -I{} gobuster dir -u {} -w wordlist.txt
+./recon-parser-util.py scan.txt -f urls | xargs -I{} gobuster dir -u {} -w wordlist.txt
 ```
 
 If you saved gobuster with `-o`, the file doesn't contain the target URL.
 Pass it with `-u` so the results land under the right host:
 
 ```bash
-./nmap-parser.py scan.txt gob.txt -u http://10.10.10.5
+./recon-parser-util.py scan.txt gob.txt -u http://10.10.10.5
 ```
 
-Run `./nmap-parser.py -h` to see every option.
+Run `./recon-parser-util.py -h` to see every option.
 
 ## Tests
 

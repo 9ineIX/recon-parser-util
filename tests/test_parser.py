@@ -9,7 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 EXAMPLES = ROOT / "examples"
 
-_spec = importlib.util.spec_from_file_location("nmap_parser", ROOT / "nmap-parser.py")
+_spec = importlib.util.spec_from_file_location("nmap_parser", ROOT / "recon-parser-util.py")
 np = importlib.util.module_from_spec(_spec)
 sys.modules["nmap_parser"] = np
 _spec.loader.exec_module(np)
